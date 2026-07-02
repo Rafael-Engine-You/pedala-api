@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { UsuarioRequestDto } from './dto/usuario_request.dto';
 
 @Injectable()
 export class UsuarioService {
@@ -15,6 +16,10 @@ export class UsuarioService {
         }
     ]
 
+    salvarUsuario(dto: UsuarioRequestDto) {
+        this.usuarios.push(dto)
+    }
+
     listarUsuario() {
         return this.usuarios 
     }
@@ -22,6 +27,11 @@ export class UsuarioService {
     buscarUsuarioPeloEmail(email:string) {
         const usuario = this.usuarios
         .find(u => u.email === email)  
+
+        if (usuario === null || usuario === undefined) {
+            throw new 
+            NotFoundException("Usuário não encontrado!")
+        }
         return usuario  
     }
 }
