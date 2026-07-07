@@ -1,4 +1,5 @@
 import { TypeOrmModuleOptions } from "@nestjs/typeorm"
+import { join } from "path"
 import { DataSourceOptions } from "typeorm"
 
 const options: TypeOrmModuleOptions & DataSourceOptions = {
@@ -10,7 +11,9 @@ const options: TypeOrmModuleOptions & DataSourceOptions = {
   database: "pedaladb",
 
   //entities: [`${__dirname}/../modules/**/*.model{.js,.ts}`],
-  migrations: [`${__dirname}/../migrations/*{.ts,.js}`],
+  migrations: [
+    join(__dirname, '..', 'database', 'migrations', '*{.ts,.js}'),
+  ],
 
   migrationsRun: true,
   synchronize: false,
