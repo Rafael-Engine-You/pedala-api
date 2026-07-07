@@ -3,7 +3,7 @@ import { AppService } from './app.service';
 import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
-  imports: [UsuarioModule],
   providers: [AppService],
+  imports: [UsuarioModule],
 })
 export class AppModule {}
