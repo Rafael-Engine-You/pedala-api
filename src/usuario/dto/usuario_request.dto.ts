@@ -1,5 +1,5 @@
 export class UsuarioRequestDto {
-    nome:string
-    email: string
-    telefone:string
+  nome: string;
+  email: string;
+  telefone: string;
 }

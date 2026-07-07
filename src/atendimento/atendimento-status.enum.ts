@@ -1,0 +1,6 @@
+export enum AtendimentoStatus {
+  AGENDADO = 'AGENDADO',
+  EM_ATENDIMENTO = 'EM_ATENDIMENTO',
+  ATENDIDO = 'ATENDIDO',
+  CANCELADO = 'CANCELADO',
+}
