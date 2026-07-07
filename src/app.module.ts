@@ -3,6 +3,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
 import { UsuarioModule } from './usuario/usuario.module';
+import { typeOrmConfig } from './config/typeorm.config';
 
 @Module({
   imports: [
@@ -10,18 +11,9 @@ import { UsuarioModule } from './usuario/usuario.module';
       isGlobal: true,
       envFilePath: '.env'
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '102030',
-      database: 'pedaladb',
-      entities: [],
-      migrations: []
-    }),
+    TypeOrmModule.forRoot(typeOrmConfig),
     UsuarioModule
   ],
-  providers: [AppService],
+  providers: [AppService]
 })
 export class AppModule {}
