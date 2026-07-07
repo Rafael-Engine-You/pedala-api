@@ -9,8 +9,7 @@ const options: TypeOrmModuleOptions & DataSourceOptions = {
   username: "postgres",
   password: "102030",
   database: "pedaladb",
-
-  //entities: [`${__dirname}/../modules/**/*.model{.js,.ts}`],
+  autoLoadEntities: true,
   migrations: [
     join(__dirname, '..', 'database', 'migrations', '*{.ts,.js}'),
   ],
