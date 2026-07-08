@@ -3,6 +3,7 @@ import { UsuarioRequestDto } from './dto/usuario_request.dto';
 import { Repository } from 'typeorm';
 import {UsuarioModel} from './usuario.model'
 import { InjectRepository } from '@nestjs/typeorm';
+import { UsuarioEditarRequestDto } from './dto/usuario_editar_request.dto';
 
 @Injectable()
 export class UsuarioService {
@@ -29,7 +30,32 @@ export class UsuarioService {
         return await this.usuarioRepository.find()
     }
 
-    buscarUsuarioPeloEmail(email:string) {
-      
+    async buscarUsuarioPeloEmail(email:string): Promise<UsuarioModel | null> {
+      return await this.usuarioRepository.findOne({
+            where: {
+                email: email
+            }
+        })
+    }
+
+    // async buscarUsuarioPeloId(id:string): 
+    // Promise<UsuarioModel> {
+    //   const usuario = await this.usuarioRepository.findOneBy({
+    //     id: id
+    //   })
+
+    //   if(!usuario) throw new BadRequestException("Usuario não encontrado!")
+    //   return usuario  
+    // }
+    async buscarUsuarioPeloId(id:string): 
+    Promise<UsuarioModel> {
+      return await this.usuarioRepository.findOneByOrFail({
+        id
+      })  
+    }
+
+    async editar(id:string, dto: UsuarioEditarRequestDto):Promise<void>{
+        console.log('**** ', dto)
+        const result = await this.usuarioRepository.update(id, dto)
     }
 }
