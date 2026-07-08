@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { UsuarioRequestDto } from './dto/usuario_request.dto';
 import { Repository } from 'typeorm';
 import {UsuarioModel} from './usuario.model'
@@ -9,12 +9,20 @@ export class UsuarioService {
 
     constructor(
         @InjectRepository(UsuarioModel)
-        private readonly usuarioRepository: 
-        Repository<UsuarioModel>
+        private readonly usuarioRepository:Repository<UsuarioModel>
     ){}
 
-    salvarUsuario(dto: UsuarioRequestDto) {
-        this.usuarioRepository.save(dto)
+    async salvarUsuario(dto: UsuarioRequestDto): Promise<void> {
+        const existeUsuario = await this.usuarioRepository.findOne({
+            where: {
+                email: dto.email
+            }
+        })
+
+        if (existeUsuario) throw new BadRequestException(`Usuário ja 
+            cadastrado com este email`)
+
+        await this.usuarioRepository.save(dto)
     }
 
     listarUsuario() {
