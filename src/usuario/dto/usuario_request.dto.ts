@@ -9,7 +9,7 @@ export class UsuarioRequestDto {
     @IsEmail()
     email: string
 
-    @IsPhoneNumber()
+    @IsPhoneNumber("BR")
     @IsNotEmpty()
     contato:string
 }

@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
 import { UsuarioRequestDto } from './dto/usuario_request.dto';
+import { UsuarioModel } from './usuario.model';
 
 @Controller('usuarios')
 export class UsuarioController {
@@ -8,8 +9,8 @@ export class UsuarioController {
 
   // http://localhost:3001/usuarios
   @Get()
-  todosUsuarios(){
-    return this.usuarioService.listarUsuario()
+  async todosUsuarios():Promise<UsuarioModel[]>{
+    return await this.usuarioService.listarUsuario()
   }
   
   // http://localhost:3001/usuarios/buscar/mjose@mail.com
@@ -25,7 +26,7 @@ export class UsuarioController {
   }
 
   @Post()
-  addUsuario(@Body() request:UsuarioRequestDto){
-    this.usuarioService.salvarUsuario(request)
+  async addUsuario(@Body() request:UsuarioRequestDto): Promise<void> {
+    await this.usuarioService.salvarUsuario(request)
   }
 }

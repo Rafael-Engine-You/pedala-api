@@ -25,8 +25,8 @@ export class UsuarioService {
         await this.usuarioRepository.save(dto)
     }
 
-    listarUsuario() {
-    
+    async listarUsuario(): Promise<UsuarioModel[]> {
+        return await this.usuarioRepository.find()
     }
 
     buscarUsuarioPeloEmail(email:string) {
