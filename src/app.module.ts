@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
 import { UsuarioModule } from './usuario/usuario.module';
 import { typeOrmConfig } from './config/typeorm.config';
+import { EstacoesModule } from './estacoes/estacoes.module';
 
 @Module({
   imports: [
@@ -12,7 +13,8 @@ import { typeOrmConfig } from './config/typeorm.config';
       envFilePath: '.env'
     }),
     TypeOrmModule.forRoot(typeOrmConfig),
-    UsuarioModule
+    UsuarioModule,
+    EstacoesModule
   ],
   providers: [AppService]
 })
