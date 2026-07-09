@@ -1,37 +1,61 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { UsuarioRequestDto } from './dto/usuario_request.dto';
+import { Repository } from 'typeorm';
+import {UsuarioModel} from './usuario.model'
+import { InjectRepository } from '@nestjs/typeorm';
+import { UsuarioEditarRequestDto } from './dto/usuario_editar_request.dto';
 
 @Injectable()
 export class UsuarioService {
-    private usuarios:any = [
-        {
-            nome: "José Antônio",
-            email: "jose@mail.com",
-            telefone: "(86) 9.9988-6633"
-        },
-        {
-            nome: "Maira José",
-            email: "mjose@mail.com",
-            telefone: "(86) 9.9987-5544"
-        }
-    ]
 
-    salvarUsuario(dto: UsuarioRequestDto) {
-        this.usuarios.push(dto)
+    constructor(
+        @InjectRepository(UsuarioModel)
+        private readonly usuarioRepository:Repository<UsuarioModel>
+    ){}
+
+    async salvarUsuario(dto: UsuarioRequestDto): Promise<void> {
+        const existeUsuario = await this.usuarioRepository.findOne({
+            where: {
+                email: dto.email
+            }
+        })
+
+        if (existeUsuario) throw new BadRequestException(`Usuário ja 
+            cadastrado com este email`)
+
+        await this.usuarioRepository.save(dto)
     }
 
-    listarUsuario() {
-        return this.usuarios 
+    async listarUsuario(): Promise<UsuarioModel[]> {
+        return await this.usuarioRepository.find()
     }
 
-    buscarUsuarioPeloEmail(email:string) {
-        const usuario = this.usuarios
-        .find(u => u.email === email)  
+    async buscarUsuarioPeloEmail(email:string): Promise<UsuarioModel | null> {
+      return await this.usuarioRepository.findOne({
+            where: {
+                email: email
+            }
+        })
+    }
 
-        if (usuario === null || usuario === undefined) {
-            throw new 
-            NotFoundException("Usuário não encontrado!")
-        }
-        return usuario  
+    // async buscarUsuarioPeloId(id:string): 
+    // Promise<UsuarioModel> {
+    //   const usuario = await this.usuarioRepository.findOneBy({
+    //     id: id
+    //   })
+
+    //   if(!usuario) throw new BadRequestException("Usuario não encontrado!")
+    //   return usuario  
+    // }
+    async buscarUsuarioPeloId(id:string): 
+    Promise<UsuarioModel> {
+      return await this.usuarioRepository.findOneByOrFail({
+        id
+      })  
+    }
+
+    async editar(id:string, dto: UsuarioEditarRequestDto):Promise<void>{
+        console.log('**** ', dto)
+        const result = await this.usuarioRepository.update(id, dto)
     }
 }
