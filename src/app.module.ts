@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { UsuarioModule } from './usuario/usuario.module';
 import { typeOrmConfig } from './config/typeorm.config';
 import { EstacoesModule } from './estacoes/estacoes.module';
+import { BicicletasModule } from './bicicletas/bicicletas.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { EstacoesModule } from './estacoes/estacoes.module';
     }),
     TypeOrmModule.forRoot(typeOrmConfig),
     UsuarioModule,
-    EstacoesModule
+    EstacoesModule,
+    BicicletasModule
   ],
   providers: [AppService]
 })
