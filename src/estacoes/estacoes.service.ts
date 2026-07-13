@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { EstacaoModel } from './estacao.model';
-import { Repository } from 'typeorm';
+import { ILike, Like, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { EstacaoRequestDto } from './dto/estacao_request.dto';
 
@@ -32,8 +32,20 @@ export class EstacoesService {
     }
 
     async buscarEstacaoPorId(id:string): Promise<EstacaoModel | null> {
+        console.log('*** ', id)
         return await this.estacaoRepository.findOneBy({
             id
         })
+    }
+
+    async buscarEstacaoUsandoParteDoNome(query: string): 
+    Promise<EstacaoModel[]> {
+        console.log('*** ', query)
+        const estacoes = await this.estacaoRepository.find({
+            where: {
+                nome: ILike(`%${query}%`) 
+            }
+        })
+        return estacoes
     }
 }

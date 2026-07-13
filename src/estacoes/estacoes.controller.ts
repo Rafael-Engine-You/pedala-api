@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { EstacoesService } from './estacoes.service';
 import { EstacaoRequestDto } from './dto/estacao_request.dto';
 import { EstacaoModel } from './estacao.model';
@@ -21,8 +21,15 @@ export class EstacoesController {
         return await this.estacaoService.buscarTodasEstacoes()
     }
 
+    @Get("/buscar")
+    async buscandoEstacaoPeloNome(@Query("nome") nome:string)
+            :Promise<EstacaoModel[]> {
+        return await this.estacaoService
+        .buscarEstacaoUsandoParteDoNome(nome)            
+    }
+
     @Get("/:id")
     async buscarEstacaoPorId(@Param("id") estacaoId: string):Promise<EstacaoModel | null> {
-        return this.estacaoService.buscarEstacaoPorId(estacaoId)
-    }
+        return await this.estacaoService.buscarEstacaoPorId(estacaoId)
+    }   
 }
