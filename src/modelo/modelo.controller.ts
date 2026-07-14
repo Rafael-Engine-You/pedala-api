@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ModeloService } from './modelo.service';
 import { ModeloModel } from './modelo.model';
+import { ModeloRequestDto } from './dto/modelo_request.dto';
 
-@Controller('modelo')
+@Controller('modelos')
 export class ModeloController {
 
     constructor(
@@ -10,8 +11,8 @@ export class ModeloController {
     ){}
 
     @Post()
-    async addModelo():Promise<void> {
-        
+    async addModelo(@Body() request: ModeloRequestDto):Promise<void> {
+        await this.modeloService.addModelo(request)
     }
 
     @Get()

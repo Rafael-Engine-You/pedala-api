@@ -6,7 +6,7 @@ export class ModeloModel {
     @PrimaryGeneratedColumn('uuid')
     id: string
 
-    @Column({ name: "modelo" })
+    @Column({ name: "nome" })
     nomeModelo: string
     
     @ManyToOne(() => MarcaModel)

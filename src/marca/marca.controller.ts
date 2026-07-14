@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { MarcaService } from './marca.service';
 import { MarcaModel } from './marca.model';
 
-@Controller('marca')
+@Controller('marcas')
 export class MarcaController {
 
     constructor(
