@@ -6,7 +6,7 @@ export class CriarTabelaMarca1783949375478 implements MigrationInterface {
         await queryRunner.query(`
             CREATE TABLE IF NOT EXISTS marcas(
                 id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-                nome VARCHAR(150) NOT NULL UNIQUE,
+                nome VARCHAR(150) NOT NULL UNIQUE
             );                
         `)   
     }
