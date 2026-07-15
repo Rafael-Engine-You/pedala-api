@@ -4,6 +4,7 @@ import { ModeloModel } from './modelo.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ModeloRequestDto } from './dto/modelo_request.dto';
 import { MarcaService } from 'src/marca/marca.service';
+import { MarcaModule } from 'src/marca/marca.module';
 
 @Injectable()
 export class ModeloService {
@@ -27,5 +28,13 @@ export class ModeloService {
         })
 
         await this.moduloRepository.save(modelo)
+    }
+
+    async carregaModelos():Promise<ModeloModel[]> {
+        return await this.moduloRepository.find({
+            relations:{
+                marca: true
+            }
+        })
     }
 }

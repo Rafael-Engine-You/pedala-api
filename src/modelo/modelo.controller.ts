@@ -16,11 +16,12 @@ export class ModeloController {
     }
 
     @Get()
-    async carregarModelos():Promise<ModeloModel[] | null>{
-        return null
+    async carregarModelos():Promise<ModeloModel[]>{
+        return await this.modeloService.carregaModelos()
     }
 
     @Get("/marcas")
-    async carregarModelosPelaMarca(@Query("marca") marca: string):Promise<void> {}
+    async carregarModelosPelaMarca(@Query("marca") marca: string)
+    :Promise<void> {}
 
 }
