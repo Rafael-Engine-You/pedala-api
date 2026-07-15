@@ -10,8 +10,8 @@ export class MarcaController {
     ){}
 
     @Post()
-    async novaMarca(@Body() nome: string):Promise<void> {
-        await this.marcaService.addMarca(nome)
+    async novaMarca(@Body() data: {nome: string}):Promise<void> {
+        await this.marcaService.addMarca(data)
     }
 
     @Get()
