@@ -15,9 +15,6 @@ export class MarcaService {
         const existeMarca = await this.marcaRepository.findOneBy({ nomeMarca: data.nome })
         if(existeMarca) throw new BadRequestException(`Marca já registrada com 
             este nome ${data.nome}`)
-
-        console.log('******', data.nome)
-
         const marca = this.marcaRepository.create({ nomeMarca: data.nome})
         await this.marcaRepository.save(marca)    
     }
@@ -34,5 +31,13 @@ export class MarcaService {
         })
         if(!marca) throw new BadRequestException("Marca não encontrada")
         return marca
+    }
+
+    async atualizarMarca(id: string, data: {nome:string}):Promise<void>{
+           await this.marcaRepository.update(id, {nomeMarca: data.nome}) 
+    }
+
+    async removerMarca(id:string): Promise<void> {
+        await this.marcaRepository.delete(id)
     }
 }
