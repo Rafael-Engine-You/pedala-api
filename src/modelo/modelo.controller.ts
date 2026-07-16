@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ModeloService } from './modelo.service';
 import { ModeloModel } from './modelo.model';
 import { ModeloRequestDto } from './dto/modelo_request.dto';
+import { ModeloResponseDto } from './dto/modelo_response.dto';
 
 @Controller('modelos')
 export class ModeloController {
@@ -16,12 +17,7 @@ export class ModeloController {
     }
 
     @Get()
-    async carregarModelos():Promise<ModeloModel[]>{
+    async carregarModelos():Promise<ModeloResponseDto[]>{
         return await this.modeloService.carregaModelos()
     }
-
-    @Get("/marcas")
-    async carregarModelosPelaMarca(@Query("marca") marca: string)
-    :Promise<void> {}
-
 }

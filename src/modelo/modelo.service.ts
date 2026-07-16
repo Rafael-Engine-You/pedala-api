@@ -1,10 +1,11 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { ILike, Repository } from 'typeorm';
 import { ModeloModel } from './modelo.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ModeloRequestDto } from './dto/modelo_request.dto';
 import { MarcaService } from 'src/marca/marca.service';
 import { MarcaModule } from 'src/marca/marca.module';
+import { ModeloResponseDto } from './dto/modelo_response.dto';
 
 @Injectable()
 export class ModeloService {
@@ -30,11 +31,34 @@ export class ModeloService {
         await this.moduloRepository.save(modelo)
     }
 
-    async carregaModelos():Promise<ModeloModel[]> {
-        return await this.moduloRepository.find({
+    async carregaModelos():Promise<ModeloResponseDto[]> {
+        const modelos = await this.moduloRepository.find({
             relations:{
                 marca: true
             }
         })
+
+        return modelos.map(mo => ({
+            id: mo.id,
+            modelo: mo.nomeModelo,
+            marca: mo.marca.nomeMarca 
+        }))
+    }
+
+    async carregarModeloPelaMarca(marca:string):Promise<ModeloResponseDto[]>{
+     const modelos = await this.moduloRepository.find({
+        where: {
+            marca: {
+                nomeMarca: ILike(`%${marca}%`)
+            }
+        },
+        relations: {
+            marca: true
+        }
+     })   
+
+     return modelos.map(modelo => {
+        return {}
+     })
     }
 }
