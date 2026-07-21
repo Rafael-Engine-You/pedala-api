@@ -40,6 +40,16 @@ export class EstacoesService {
         return estacao
     }
 
+    async buscarEstacaoPorIdESituacao(id:string, situacao: boolean): Promise<EstacaoModel> {
+        const estacao = await this.estacaoRepository.findOneBy({
+            id,
+            ativa: situacao
+        })
+
+        if(!estacao) throw new NotFoundException("Nenhuma estação encontrada com este id")
+        return estacao
+    }
+
     async buscarEstacaoUsandoParteDoNome(query: string): 
     Promise<EstacaoModel[]> {
         console.log('*** ', query)

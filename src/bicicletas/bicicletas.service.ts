@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { BicicletaModel } from './bicicleta.model';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -17,10 +17,23 @@ export class BicicletasService {
     ){}
 
     async addBicicleta(data: BicicletaRequestDto): Promise<void> {
-        const lotacao = await this.estacoesService.buscarEstacaoPorId(data.estacaoId)
+        const lotacao = await this.estacoesService
+                    .buscarEstacaoPorIdESituacao(data.estacaoId, true)
         const modelo = await this.modeloService.carregarModeloPeloId(data.modeloId)
 
-        console.log('****** ', modelo)
+        // total de bicicletas na estacao
+        const contarTotalDeBicicletaNaEstacao = await this.bicicletaRepository.count({
+            where: {
+                lotacao: {
+                    id: lotacao.id
+                }
+            }
+        })
+
+        if(lotacao.capacidade > contarTotalDeBicicletaNaEstacao && lotacao.ativa === true ) {
+            throw new 
+                BadRequestException(`Estação com capacidade máxima de ${lotacao.capacidade}`)
+        }
 
         const bicicleta = this.bicicletaRepository.create({
             status: data.status,
@@ -32,6 +45,13 @@ export class BicicletasService {
     }
 
     async carregarBicicletas():Promise<BicicletaModel[]>{
-        return await this.bicicletaRepository.find({})
+        return await this.bicicletaRepository.find({
+            relations: {
+                modelo: {
+                    marca: true
+                },
+                lotacao: true
+            }
+        })
     }
 }

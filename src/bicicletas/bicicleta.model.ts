@@ -1,6 +1,6 @@
 import { EstacaoModel } from "src/estacoes/estacao.model"
 import { ModeloModel } from "src/modelo/modelo.model"
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 import { StatusEstacao } from "./status_estacao.enum"
 
 @Entity("bicicletas")
@@ -9,7 +9,7 @@ export class BicicletaModel {
     @PrimaryGeneratedColumn("uuid")
     id: string
 
-    @ManyToMany(() => ModeloModel)
+    @ManyToOne(() => ModeloModel)
     @JoinColumn({ name: "modelo_id" })
     modelo: ModeloModel
  
