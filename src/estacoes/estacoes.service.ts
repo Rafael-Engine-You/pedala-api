@@ -7,6 +7,9 @@ import { EstacaoRequestDto } from './dto/estacao_request.dto';
 @Injectable()
 export class EstacoesService {
 
+    //TODO: criar editar estações
+    //TODO: ativar e desativar uma estação
+
     constructor(
         @InjectRepository(EstacaoModel)
         private readonly estacaoRepository: Repository<EstacaoModel>

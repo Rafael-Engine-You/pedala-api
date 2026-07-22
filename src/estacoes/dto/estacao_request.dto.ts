@@ -16,5 +16,5 @@ export class EstacaoRequestDto {
     capacidade: number
 
     @IsOptional()
-    ativo: boolean
+    ativa: boolean
 }

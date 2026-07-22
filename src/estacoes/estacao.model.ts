@@ -12,7 +12,7 @@ export class EstacaoModel {
     @Column()
     capacidade:number
     
-    @Column()
+    @Column({default: true})
     ativa:boolean
     
     @CreateDateColumn({name: 'dt_criacao'})

@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { BicicletasService } from './bicicletas.service';
 import { BicicletaRequestDto } from './dto/bicicleta_request.dto';
-import { BicicletaModel } from './bicicleta.model';
+import { BicicletaResponseDto } from './dto/bicicleta_response.dto';
 
 @Controller('bicicletas')
 export class BicicletasController {
@@ -15,7 +15,7 @@ export class BicicletasController {
     }
 
     @Get()
-    async listarBicicletas(): Promise<BicicletaModel[]>{
+    async listarBicicletas(): Promise<BicicletaResponseDto[]>{
         return await this.bicicletaServices.carregarBicicletas()
     }
 }
