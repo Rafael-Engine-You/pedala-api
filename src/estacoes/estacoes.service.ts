@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { EstacaoModel } from './estacao.model';
 import { ILike, Like, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -6,6 +6,9 @@ import { EstacaoRequestDto } from './dto/estacao_request.dto';
 
 @Injectable()
 export class EstacoesService {
+
+    //TODO: criar editar estações
+    //TODO: ativar e desativar uma estação
 
     constructor(
         @InjectRepository(EstacaoModel)
@@ -31,11 +34,23 @@ export class EstacoesService {
         return await this.estacaoRepository.find()
     }
 
-    async buscarEstacaoPorId(id:string): Promise<EstacaoModel | null> {
-        console.log('*** ', id)
-        return await this.estacaoRepository.findOneBy({
+    async buscarEstacaoPorId(id:string): Promise<EstacaoModel> {
+        const estacao = await this.estacaoRepository.findOneBy({
             id
         })
+
+        if(!estacao) throw new NotFoundException("Nenhuma estação encontrada com este id")
+        return estacao
+    }
+
+    async buscarEstacaoPorIdESituacao(id:string, situacao: boolean): Promise<EstacaoModel> {
+        const estacao = await this.estacaoRepository.findOneBy({
+            id,
+            ativa: situacao
+        })
+
+        if(!estacao) throw new NotFoundException("Nenhuma estação encontrada com este id")
+        return estacao
     }
 
     async buscarEstacaoUsandoParteDoNome(query: string): 

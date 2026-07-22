@@ -7,6 +7,7 @@ import { EstacaoModel } from './estacao.model';
 @Module({
   imports: [TypeOrmModule.forFeature([EstacaoModel])],
   controllers: [EstacoesController],
-  providers: [EstacoesService]
+  providers: [EstacoesService],
+  exports: [EstacoesService]
 })
 export class EstacoesModule {}
