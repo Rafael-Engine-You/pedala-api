@@ -1,5 +1,5 @@
 import { Controller, Post } from '@nestjs/common';
-import { UsuarioRequestDto } from 'src/usuario/dto/usuario_request.dto';
+import { UsuarioRequestDto } from 'src/modules/usuario/dto/usuario_request.dto';
 
 @Controller('auth')
 export class AuthController {

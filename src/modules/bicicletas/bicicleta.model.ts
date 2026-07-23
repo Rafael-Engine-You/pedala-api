@@ -1,7 +1,7 @@
-import { EstacaoModel } from "src/estacoes/estacao.model"
-import { ModeloModel } from "src/modelo/modelo.model"
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 import { StatusEstacao } from "./status_estacao.enum"
+import { ModeloModel } from "../modelo/modelo.model"
+import { EstacaoModel } from "../estacoes/estacao.model"
 
 @Entity("bicicletas")
 export class BicicletaModel {
