@@ -8,6 +8,7 @@ import { EstacoesModule } from './estacoes/estacoes.module';
 import { BicicletasModule } from './bicicletas/bicicletas.module';
 import { MarcaModule } from './marca/marca.module';
 import { ModeloModule } from './modelo/modelo.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -20,7 +21,8 @@ import { ModeloModule } from './modelo/modelo.module';
     EstacoesModule,
     BicicletasModule,
     MarcaModule,
-    ModeloModule
+    ModeloModule,
+    AuthModule
   ],
   providers: [AppService]
 })

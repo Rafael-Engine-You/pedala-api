@@ -4,6 +4,8 @@ import { Repository } from 'typeorm';
 import {UsuarioModel} from './usuario.model'
 import { InjectRepository } from '@nestjs/typeorm';
 import { UsuarioEditarRequestDto } from './dto/usuario_editar_request.dto';
+import { UsuarioPapel } from './papel.enun';
+import bcrypt from 'bcrypt'
 
 @Injectable()
 export class UsuarioService {
@@ -23,7 +25,15 @@ export class UsuarioService {
         if (existeUsuario) throw new BadRequestException(`Usuário ja 
             cadastrado com este email`)
 
-        await this.usuarioRepository.save(dto)
+        const passwdHash = await bcrypt.hash(dto.senha, 12)
+
+        const usuario = this.usuarioRepository.create({
+            email: dto.email,
+            senha: passwdHash,
+            nome: dto.nome,
+            perfil: dto.perfil ? dto.perfil : UsuarioPapel.CLIENTE
+        })    
+        await this.usuarioRepository.save(usuario)
     }
 
     async listarUsuario(): Promise<UsuarioModel[]> {
