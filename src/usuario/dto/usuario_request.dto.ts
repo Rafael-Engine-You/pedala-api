@@ -15,7 +15,7 @@ export class UsuarioRequestDto {
     @IsNotEmpty({message: "Campo EMAIL é obrigatório"})
     email: string
 
-    @IsEmpty({message: "Campo SENHA é obrigatório"})
+    @IsNotEmpty({message: "Campo SENHA é obrigatório"})
     @MinLength(6, {
         message: (args: ValidationArguments) =>
         `O campo '${args.property}' deve conter no mínimo 

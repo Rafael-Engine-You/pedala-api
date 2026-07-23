@@ -13,8 +13,11 @@ export class AddColumaPerfilTabelaUsuario1784805069852 implements MigrationInter
         //         default: UsuarioPapel.CLIENTE
         //     }))
         await queryRunner.query(`
-            ALTER TABLE ADD COLUMN perfil VARCHAR(20) NOT NULL DEFAULT 'CLIENTE';    
-            ALTER TABLE ADD COLUMN senha VARCHAR(150) NOT NULL;    
+            ALTER TABLE usuarios ADD COLUMN perfil VARCHAR(20) 
+                NOT NULL DEFAULT 'CLIENTE';
+                    
+            ALTER TABLE usuarios ADD COLUMN senha VARCHAR(150) 
+                NOT NULL;    
         `)
     }
 
