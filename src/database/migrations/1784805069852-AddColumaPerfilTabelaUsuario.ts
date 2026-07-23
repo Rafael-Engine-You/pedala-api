@@ -1,4 +1,4 @@
-import { UsuarioPapel } from "src/usuario/papel.enun";
+import { UsuarioPapel } from "src/modules/usuario/papel.enun";
 import { MigrationInterface, QueryRunner, TableColumn } from "typeorm";
 
 export class AddColumaPerfilTabelaUsuario1784805069852 implements MigrationInterface {
@@ -15,7 +15,7 @@ export class AddColumaPerfilTabelaUsuario1784805069852 implements MigrationInter
         await queryRunner.query(`
             ALTER TABLE usuarios ADD COLUMN perfil VARCHAR(20) 
                 NOT NULL DEFAULT 'CLIENTE';
-                    
+
             ALTER TABLE usuarios ADD COLUMN senha VARCHAR(150) 
                 NOT NULL;    
         `)

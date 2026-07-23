@@ -3,9 +3,8 @@ import { ILike, Repository } from 'typeorm';
 import { ModeloModel } from './modelo.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ModeloRequestDto } from './dto/modelo_request.dto';
-import { MarcaService } from 'src/marca/marca.service';
-import { MarcaModule } from 'src/marca/marca.module';
 import { ModeloResponseDto } from './dto/modelo_response.dto';
+import { MarcaService } from '../marca/marca.service';
 
 @Injectable()
 export class ModeloService {

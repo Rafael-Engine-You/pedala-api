@@ -3,7 +3,7 @@ import { ModeloService } from './modelo.service';
 import { ModeloController } from './modelo.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ModeloModel } from './modelo.model';
-import { MarcaModule } from 'src/marca/marca.module';
+import { MarcaModule } from '../marca/marca.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ModeloModel]), MarcaModule],

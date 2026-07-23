@@ -2,10 +2,10 @@ import { BadRequestException, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { BicicletaModel } from './bicicleta.model';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ModeloService } from 'src/modelo/modelo.service';
-import { EstacoesService } from 'src/estacoes/estacoes.service';
+import { EstacoesService } from 'src/modules/estacoes/estacoes.service';
 import { BicicletaRequestDto } from './dto/bicicleta_request.dto';
 import { BicicletaResponseDto } from './dto/bicicleta_response.dto';
+import { ModeloService } from '../modelo/modelo.service';
 
 @Injectable()
 export class BicicletasService {
