@@ -9,6 +9,7 @@ import { BicicletasModule } from './modules/bicicletas/bicicletas.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { MarcaModule } from './modules/marca/marca.module';
 import { ModeloModule } from './modules/modelo/modelo.module';
+import { ManutencaoModule } from './modules/manutencao/manutencao.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { ModeloModule } from './modules/modelo/modelo.module';
     BicicletasModule,
     MarcaModule,
     ModeloModule,
-    AuthModule
+    AuthModule,
+    ManutencaoModule
   ],
   providers: [AppService]
 })
