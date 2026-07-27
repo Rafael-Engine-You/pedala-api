@@ -68,6 +68,16 @@ export class BicicletasService {
         return bicicletas.map(b => this.converterModelEmResponse(b))
     }
 
+
+    async carregarBicicletaPeloId(bicicletaId: string):
+        Promise<BicicletaModel> {
+        const bicicleta = await this.bicicletaRepository
+                .findOneBy({ id: bicicletaId})
+        if(!bicicleta) 
+            throw new BadRequestException("Bicicleta não encontrada")
+        return bicicleta    
+    } 
+
     converterModelEmResponse(bicicleta: BicicletaModel): BicicletaResponseDto {
         return ({
             id: bicicleta.id,
@@ -77,4 +87,6 @@ export class BicicletasService {
             status: bicicleta.status
         })
     }
+
+
 }

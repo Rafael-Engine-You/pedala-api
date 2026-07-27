@@ -27,6 +27,7 @@ export class ManutencaoModel {
     @Column({
         name: "status", 
         type: 'enum', 
+        enum: StatusManutencao,
         default: StatusManutencao.AGUARDANDO
     })
     statusManutencao: StatusManutencao
