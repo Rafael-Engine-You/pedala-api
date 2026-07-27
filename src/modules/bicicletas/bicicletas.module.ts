@@ -10,6 +10,7 @@ import { EstacoesModule } from '../estacoes/estacoes.module';
   imports: [TypeOrmModule.forFeature([BicicletaModel]), ModeloModule, 
   EstacoesModule],
   providers: [BicicletasService],
-  controllers: [BicicletasController]
+  controllers: [BicicletasController],
+  exports: [BicicletasService]
 })
 export class BicicletasModule {}
